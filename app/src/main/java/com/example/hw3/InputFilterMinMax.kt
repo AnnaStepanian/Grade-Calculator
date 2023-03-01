@@ -24,6 +24,6 @@ class InputFilterMinMax(private val min: String, private val max: String) : Inpu
     }
 
     private fun isInRange(a: String, b: String, c: Int): Boolean {
-        return if (b > a) c in (a.toInt() + 1)..(b.toInt() - 1) else c in (b.toInt() + 1)..(a.toInt() - 1)
+        return if (b > a) c in a.toInt()..b.toInt() else c in b.toInt()..a.toInt()
     }
 }

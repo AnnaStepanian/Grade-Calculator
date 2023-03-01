@@ -18,7 +18,7 @@
             android:id="@+id/homework_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Homework"
+            android:text="HOMEWORK"
             android:textSize="20sp"
             android:textColor="@color/purple_500"
             android:textStyle="bold"
@@ -43,7 +43,7 @@
             android:id="@+id/midterm_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Midterm"
+            android:text="MIDTERM"
             android:textColor="@color/purple_500"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -68,7 +68,7 @@
             android:id="@+id/participation_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Participation"
+            android:text="PARTICIPATION"
             android:textColor="@color/purple_500"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -88,7 +88,7 @@
             android:id="@+id/presentation_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Group presentation"
+            android:text="GROUP PRESENTATION"
             android:textColor="@color/purple_500"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -108,7 +108,7 @@
             android:id="@+id/final_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Final presentation"
+            android:text="FINAL PRESENTATION"
             android:textColor="@color/purple_500"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -129,6 +129,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Calculate"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/result_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/calculate"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_marginTop="16dp"/>
 
         <Button
