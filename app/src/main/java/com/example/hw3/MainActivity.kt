@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var reset: Button
     private lateinit var result: TextView
 
-    private val MAX_CHILD_VIEWS = 5 // maximum number of child views
+    private val MAX_CHILD_VIEWS = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,17 +40,41 @@ class MainActivity : AppCompatActivity() {
 
         addButton.setOnClickListener {
             if (container1.childCount < MAX_CHILD_VIEWS) {
+                val linearLayout = LinearLayout(this)
+                linearLayout.orientation = LinearLayout.HORIZONTAL
+
                 val editText = EditText(this)
                 editText.hint = "Homework grade ${container1.childCount + 1}"
                 editText.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1f
                 )
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
                 editText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(3),
                     InputFilterMinMax("0", "100"))
-                container1.addView(editText)
-                // Disable button if maximum limit has been reached
+
+                val deleteButton = Button(this)
+                deleteButton.text = "Delete"
+                deleteButton.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                deleteButton.setOnClickListener {
+                    container1.removeView(linearLayout)
+                    addButton.isEnabled = true
+                    for (i in 0 until container1.childCount) {
+                        val child = container1.getChildAt(i) as LinearLayout
+                        val childEditText = child.getChildAt(0) as EditText
+                        childEditText.hint = "Homework grade ${i + 1}"
+                    }
+                }
+
+                linearLayout.addView(editText)
+                linearLayout.addView(deleteButton)
+
+                container1.addView(linearLayout)
+
                 if (container1.childCount == MAX_CHILD_VIEWS) {
                     addButton.isEnabled = false
                 }
@@ -59,19 +83,48 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
         addButton2.setOnClickListener {
             if (container2.childCount < 2) {
+                val linearLayout = LinearLayout(this)
+                linearLayout.orientation = LinearLayout.HORIZONTAL
+
                 val editText = EditText(this)
                 editText.hint = "Midterm grade ${container2.childCount + 1}"
                 editText.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1f
                 )
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
                 editText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(3),
                     InputFilterMinMax("0", "100"))
-                container2.addView(editText)
-                // Disable button if maximum limit has been reached
+
+                val deleteButton = Button(this)
+                deleteButton.text = "Delete"
+                deleteButton.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                deleteButton.setOnClickListener {
+                    container2.removeView(linearLayout)
+                    // Re-enable the add button
+                    addButton2.isEnabled = true
+
+                    for (i in 0 until container2.childCount) {
+                        val view = container2.getChildAt(i)
+                        if (view is LinearLayout) {
+                            val editText = view.getChildAt(0) as EditText
+                            editText.hint = "Midterm grade ${i + 1}"
+                        }
+                    }
+                }
+
+                linearLayout.addView(editText)
+                linearLayout.addView(deleteButton)
+
+                container2.addView(linearLayout)
+
                 if (container2.childCount == 2) {
                     addButton2.isEnabled = false
                 }
@@ -79,6 +132,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Maximum limit reached", Toast.LENGTH_SHORT).show()
             }
         }
+
         calculate.setOnClickListener {
             val hwGrades = mutableListOf<Double>()
             for (i in 1..5) {
