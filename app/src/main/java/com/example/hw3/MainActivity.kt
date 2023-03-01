@@ -37,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         result = findViewById<TextView>(R.id.result_text_view)
         reset = findViewById(R.id.reset)
 
+        participationInputText.filters = arrayOf<InputFilter>(InputFilterMinMax("0", "100"))
+        groupPresentationInputText.filters = arrayOf<InputFilter>(InputFilterMinMax("0", "100"))
+        finalProjectInputText.filters = arrayOf<InputFilter>(InputFilterMinMax("0", "100"))
+
+
+
 
         addButton.setOnClickListener {
             if (container1.childCount < MAX_CHILD_VIEWS) {
