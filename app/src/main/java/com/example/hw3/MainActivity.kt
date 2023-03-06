@@ -65,10 +65,12 @@ class MainActivity : AppCompatActivity() {
 
 
         calculateButton!!.setOnClickListener {
+            calculateButton?.isEnabled = false
             calculateTotalGrade()
         }
 
         resetButton!!.setOnClickListener {
+            calculateButton?.isEnabled = true
             resetFields()
         }
 
@@ -105,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         midtermGrades: List<Double>,
         finalProjectGrade: Double
     ): Double {
-        val hwGradesList = hwGrades.map { it ?: 100.0 } // replace missing values with 100
+        val hwGradesList = hwGrades.map { it ?: 100.0 }
         val hwTotal = if (hwGradesList.isNotEmpty()) hwGradesList.sum() / hwGradesList.size else 100.0
         val firstMidtermGrade = if (midtermGrades.isNotEmpty()) midtermGrades[0] else 100.0
         val secondMidtermGrade = if (midtermGrades.size > 1) midtermGrades[1] else 100.0
