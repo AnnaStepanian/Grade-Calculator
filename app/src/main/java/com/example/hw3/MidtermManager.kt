@@ -56,22 +56,7 @@ class MidtermManager(
         editText.filters = arrayOf<InputFilter>(
             InputFilter.LengthFilter(3),
             InputFilterMinMax("0", "100"),
-            object : InputFilter {
-                override fun filter(
-                    source: CharSequence?,
-                    start: Int,
-                    end: Int,
-                    dest: Spanned?,
-                    dstart: Int,
-                    dend: Int
-                ): CharSequence? {
-                    if (dest.toString() == "0" && source.toString() != "") {
-                        // prevent adding new digits when input is already 0
-                        return ""
-                    }
-                    return null
-                }
-            }
+            ZeroInputFilter()
         )
         return editText
     }

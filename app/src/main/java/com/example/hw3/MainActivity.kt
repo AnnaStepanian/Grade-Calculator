@@ -37,9 +37,21 @@ class MainActivity : AppCompatActivity() {
         homeworkManager = HomeworkManager(this, homeworksGrade!!, addHwButton!!)
         midtermManager = MidtermManager(this, midterms!!, addMidtermsButton!!)
 
-        participationGrade!!.filters = arrayOf<InputFilter>(InputFilterMinMax("0", "100"))
-        groupPresentationGrade!!.filters = arrayOf<InputFilter>(InputFilterMinMax("0", "100"))
-        finalProjectGrade!!.filters = arrayOf<InputFilter>(InputFilterMinMax("0", "100"))
+        participationGrade!!.filters = arrayOf<InputFilter>(
+            InputFilterMinMax("0", "100"),
+            ZeroInputFilter()
+        )
+
+        groupPresentationGrade!!.filters = arrayOf<InputFilter>(
+            InputFilterMinMax("0", "100"),
+            ZeroInputFilter()
+        )
+
+        finalProjectGrade!!.filters = arrayOf<InputFilter>(
+            InputFilterMinMax("0", "100"),
+            ZeroInputFilter()
+        )
+
 
 
         addHwButton!!.setOnClickListener {
