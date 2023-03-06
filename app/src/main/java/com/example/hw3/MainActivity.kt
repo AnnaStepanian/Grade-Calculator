@@ -88,13 +88,14 @@ class MainActivity : AppCompatActivity() {
                 midtermGrades.add(midtermEditText!!.text.toString().toDouble())
             }
         }
-        val participationGrade = participationGrade?.text.toString().toDoubleOrNull() ?: 0.0
-        val groupPresentationGrade = groupPresentationGrade?.text.toString().toDoubleOrNull() ?: 0.0
-        val finalProjectGrade = finalProjectGrade?.text.toString().toDoubleOrNull() ?: 0.0
+        val participationGrade = participationGrade?.text.toString().toDoubleOrNull() ?: 100.0
+        val groupPresentationGrade = groupPresentationGrade?.text.toString().toDoubleOrNull() ?: 100.0
+        val finalProjectGrade = finalProjectGrade?.text.toString().toDoubleOrNull() ?: 100.0
 
         val totalGrade = calculateTotal(participationGrade, hwGrades, groupPresentationGrade, midtermGrades, finalProjectGrade)
         overallGrade?.text = String.format("%.2f", totalGrade)
     }
+
 
 
     private fun calculateTotal(
@@ -104,11 +105,15 @@ class MainActivity : AppCompatActivity() {
         midtermGrades: List<Double>,
         finalProjectGrade: Double
     ): Double {
-        val hwTotal = if (hwGrades.isNotEmpty()) hwGrades.sum() / hwGrades.size else 100.0
+        val hwGradesList = hwGrades.map { it ?: 100.0 } // replace missing values with 100
+        val hwTotal = if (hwGradesList.isNotEmpty()) hwGradesList.sum() / hwGradesList.size else 100.0
         val firstMidtermGrade = if (midtermGrades.isNotEmpty()) midtermGrades[0] else 100.0
         val secondMidtermGrade = if (midtermGrades.size > 1) midtermGrades[1] else 100.0
         return hwTotal * 0.2 + firstMidtermGrade * 0.1 + secondMidtermGrade * 0.2 + participationGrade*0.1 + finalProjectGrade*0.3 + groupPresentationGrade*0.1
     }
+
+
+
 
     private fun resetFields() {
         participationGrade?.text?.clear()
