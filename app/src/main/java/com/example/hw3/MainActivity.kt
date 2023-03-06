@@ -104,12 +104,10 @@ class MainActivity : AppCompatActivity() {
         midtermGrades: List<Double>,
         finalProjectGrade: Double
     ): Double {
-        val hwTotal = if (hwGrades.isNotEmpty()) hwGrades.average() * 100 * 0.2 else 100.0
-        val firstMidtermGrade = if (midtermGrades.size > 0) midtermGrades[0] else 100.0
+        val hwTotal = if (hwGrades.isNotEmpty()) hwGrades.sum() / hwGrades.size else 100.0
+        val firstMidtermGrade = if (midtermGrades.isNotEmpty()) midtermGrades[0] else 100.0
         val secondMidtermGrade = if (midtermGrades.size > 1) midtermGrades[1] else 100.0
-        val midtermTotal = firstMidtermGrade * 0.1 + secondMidtermGrade * 0.2
-        val totalGrade = participationGrade * 0.1 + hwTotal + groupPresentationGrade * 0.1 + midtermTotal + finalProjectGrade * 0.3
-        return totalGrade
+        return hwTotal * 0.2 + firstMidtermGrade * 0.1 + secondMidtermGrade * 0.2 + participationGrade*0.1 + finalProjectGrade*0.3 + groupPresentationGrade*0.1
     }
 
     private fun resetFields() {
